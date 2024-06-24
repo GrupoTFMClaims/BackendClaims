@@ -46,6 +46,7 @@ public class JWTService {
 
     public  String generateToken(UserDetails userDetails) {
         final Map<String, Object> claims = Collections.singletonMap("ROLES", userDetails.getAuthorities().toString());
+        System.out.println(" mis roles" + userDetails.getAuthorities().toString());
         return this.getToken(claims, userDetails.getUsername());
     }
     private String getToken(Map<String, Object> claims, String subject) {

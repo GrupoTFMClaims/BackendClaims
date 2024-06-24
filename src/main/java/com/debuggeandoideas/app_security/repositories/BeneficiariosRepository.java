@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface BeneficiariosRepository extends JpaRepository<BeneficiariosEntity, String> {
 
-    @Query("select c from BeneficiariosEntity c where c.user_id=:user_id")
-    public List<BeneficiariosEntity> getBeneficiariosByUserId(Long user_id);
+    @Query("select c from BeneficiariosEntity c where c.insured_id=:insured_id")
+    public List<BeneficiariosEntity> getBeneficiariosByUserId(Long insured_id);
 
 }

@@ -2,6 +2,7 @@ package com.debuggeandoideas.app_security.controllers;
 
 import com.debuggeandoideas.app_security.entites.*;
 import com.debuggeandoideas.app_security.services.ClaimsService;
+import com.debuggeandoideas.app_security.services.DiagnosticsService;
 import com.debuggeandoideas.app_security.services.ReserveService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,12 +18,13 @@ public class ClaimsController {
 
     ClaimsService claimsService;
     ReserveService reserveService;
+    DiagnosticsService diagnosticsService;
 
-    @GetMapping("/getAllClaims/{user_id}")
-    public ResponseEntity<?>getAllClaimsByUser(@PathVariable Integer user_id){
+    @GetMapping("/getAllClaimsInsured/{insured_id}")
+    public ResponseEntity<?>getAllClaimsByInsured(@PathVariable Integer insured_id){
 
         List<ClaimResponse> response = new ArrayList<>();
-        List<ClaimEntity> claims = claimsService.getAllClaimsByUserId(user_id);
+        List<ClaimEntity> claims = claimsService.getAllClaimsByInsuredId(insured_id);
         for(Integer i= 0; i<claims.size(); i++){
             ClaimResponse itemResponse = new ClaimResponse();
             ClaimEntity claim = claims.get(i);
@@ -31,10 +33,36 @@ public class ClaimsController {
             itemResponse.setState(claim.getState());
             itemResponse.setObservation(claim.getDescription());
             itemResponse.setValue(reserve.getValue());
+
             response.add(itemResponse);
         }
         return ResponseEntity.ok(response);
     }
+
+    @GetMapping("/getAllClaimsAnalist/{analist_id}")
+    public ResponseEntity<?>getAllClaimsByAnalist(@PathVariable Integer analist_id){
+
+        List<ClaimResponse> response = new ArrayList<>();
+        List<ClaimEntity> claims = claimsService.getAllClaimsByAnalistId(analist_id);
+        for(Integer i= 0; i<claims.size(); i++){
+            ClaimResponse itemResponse = new ClaimResponse();
+            ClaimEntity claim = claims.get(i);
+            ReserveEntity reserve = reserveService.getReserveByClaimId(claim.getId_claim());
+            DiagnosticsEntity diagnostic = diagnosticsService.getDiagnosticById(claim.getDiagnostic_id());
+            itemResponse.setId_claim(claim.getId_claim());
+            itemResponse.setState(claim.getState());
+            itemResponse.setObservation(claim.getDescription());
+            itemResponse.setValue(reserve.getValue());
+            itemResponse.setCreation_date(claim.getCreation_date());
+            itemResponse.setCod_diagnostic(diagnostic.getCod_diagnostic());
+            itemResponse.setDiagnostic(diagnostic.getDescription());
+            itemResponse.setSinister_date(claim.getSinister_date());
+
+            response.add(itemResponse);
+        }
+        return ResponseEntity.ok(response);
+    }
+
     @PostMapping("/saveClaim")
     public ResponseEntity saveClaim(@RequestBody AllClaimData allclaim){
         ClaimEntity claim = new ClaimEntity();
@@ -45,14 +73,13 @@ public class ClaimsController {
         claim.setDiagnostic_id(allclaim.getDiagnostic_id());
         claim.setState(allclaim.getState());
         claim.setSinister_date(allclaim.getSinister_date());
-        claim.setUser_id(allclaim.getUser_id());
-        System.out.println("mi claim" + claim);
+        claim.setInsured_id(allclaim.getInsured_id());
+        claim.setAnalist_id(1);
         claim = claimsService.saveClaim(claim);
 
         saveReserve(claim, allclaim.getValue());
         saveFile(allclaim.getFacturas(), claim.getId_claim());
         saveFile(allclaim.getDocumentos(), claim.getId_claim());
-
 
         return ResponseEntity.ok(allclaim);
     }

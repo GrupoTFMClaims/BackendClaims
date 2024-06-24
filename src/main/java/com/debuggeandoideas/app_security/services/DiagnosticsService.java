@@ -17,4 +17,7 @@ public class DiagnosticsService {
         return diagnosticsRepository.getDiagnostics();
     }
 
+    public DiagnosticsEntity getDiagnosticById(String cod_diagnostic){
+        return diagnosticsRepository.getDiagnosticById(cod_diagnostic);
+    }
 }

@@ -32,7 +32,7 @@ public class SecurityConfig {
          http.authorizeHttpRequests(auth ->
                      auth
                              .requestMatchers("/menu/**","/getAllClaims/**").hasRole("USER")
-                             .requestMatchers("/menu/**", "/getAllClaims/**").hasRole("ADMIN")
+                             .requestMatchers("/menu/**","/getAllClaims/**").hasRole("ADMIN")
                          .anyRequest().permitAll())
                 .formLogin(Customizer.withDefaults())
                 .httpBasic(Customizer.withDefaults());

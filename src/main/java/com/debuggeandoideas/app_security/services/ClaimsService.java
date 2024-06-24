@@ -31,8 +31,11 @@ public class ClaimsService {
         return reserveRepository.save(reserve);
     }
 
-    public List<ClaimEntity> getAllClaimsByUserId(Integer user_id){
-        return claimsRepository.getClaimsByUserId(user_id);
+    public List<ClaimEntity> getAllClaimsByInsuredId(Integer insured_id){
+        return claimsRepository.getClaimsByInsuredId(insured_id);
+    }
+    public List<ClaimEntity> getAllClaimsByAnalistId(Integer insured_id){
+        return claimsRepository.getClaimsByAnalistId(insured_id);
     }
 
 }

@@ -12,5 +12,5 @@ public class BeneficiariosEntity {
     @Id
     private Integer id_beneficiarie;
     private String full_name;
-    private Integer user_id;
+    private Integer insured_id;
 }

@@ -10,4 +10,7 @@ public interface DiagnosticsRepository extends JpaRepository<DiagnosticsEntity, 
 
     @Query("select c from DiagnosticsEntity c")
     public List<DiagnosticsEntity> getDiagnostics();
+
+    @Query("select c from DiagnosticsEntity c where c.cod_diagnostic =:cod_diagnostic")
+    public DiagnosticsEntity getDiagnosticById(String cod_diagnostic);
 }

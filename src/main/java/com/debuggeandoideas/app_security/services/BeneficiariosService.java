@@ -13,8 +13,8 @@ public class BeneficiariosService {
 
     BeneficiariosRepository beneficiariosRepository;
 
-    public List<BeneficiariosEntity>getBeneficiariosByUserId(Long user_id){
+    public List<BeneficiariosEntity>getBeneficiariosByUserId(Long insured_id){
 
-        return beneficiariosRepository.getBeneficiariosByUserId(user_id);
+        return beneficiariosRepository.getBeneficiariosByUserId(insured_id);
     }
 }

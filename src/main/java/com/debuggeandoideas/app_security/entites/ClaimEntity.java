@@ -15,7 +15,8 @@ public class ClaimEntity {
     private String state;
     private String creation_date;
     private String sinister_date;
-    private Integer user_id;
+    private Integer insured_id;
     private Integer beneficiary_id;
     private String diagnostic_id;
+    private Integer analist_id;
 }

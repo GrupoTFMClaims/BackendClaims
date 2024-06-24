@@ -14,4 +14,8 @@ public class ClaimResponse {
     private String state;
     private String observation;
     private String value;
+    private String creation_date;
+    private String cod_diagnostic;
+    private String diagnostic;
+    private String sinister_date;
 }

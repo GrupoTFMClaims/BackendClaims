@@ -9,6 +9,9 @@ import java.util.List;
 
 public interface ClaimsRepository extends JpaRepository<ClaimEntity, String> {
 
-    @Query("select c from ClaimEntity c where c.user_id=:user_id")
-    public List<ClaimEntity> getClaimsByUserId(Integer user_id);
+    @Query("select c from ClaimEntity c where c.insured_id=:insured_id")
+    public List<ClaimEntity> getClaimsByInsuredId(Integer insured_id);
+
+    @Query("select c from ClaimEntity c where c.analist_id=:analist_id")
+    public List<ClaimEntity> getClaimsByAnalistId(Integer analist_id);
 }

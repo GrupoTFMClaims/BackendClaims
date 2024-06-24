@@ -13,7 +13,8 @@ public class AllClaimData {
     private String diagnostic_id;
     private String sinister_date;
     private String state;
-    private Integer user_id;
+    private Integer insured_id;
+    private Integer analist_id;
     private String value;
     private List<FileEntity> documentos;
     private List<FileEntity> facturas;
