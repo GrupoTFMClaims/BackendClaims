@@ -17,4 +17,8 @@ public class BeneficiariosService {
 
         return beneficiariosRepository.getBeneficiariosByUserId(insured_id);
     }
+
+    public BeneficiariosEntity getBeneficiarioById(Integer beneficiary_id){
+        return beneficiariosRepository.getBeneficiarioById(beneficiary_id);
+    }
 }

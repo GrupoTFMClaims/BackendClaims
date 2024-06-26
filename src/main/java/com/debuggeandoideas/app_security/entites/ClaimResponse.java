@@ -11,6 +11,7 @@ import java.util.List;
 
 public class ClaimResponse {
     private Integer id_claim;
+    private Integer id_beneficiary;
     private String state;
     private String observation;
     private String value;
@@ -18,4 +19,7 @@ public class ClaimResponse {
     private String cod_diagnostic;
     private String diagnostic;
     private String sinister_date;
+    private String full_name;
+    private String dni;
+    private String beneficiary_name;
 }

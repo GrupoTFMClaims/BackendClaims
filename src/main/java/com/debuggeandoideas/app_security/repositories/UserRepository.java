@@ -10,4 +10,6 @@ public interface UserRepository extends JpaRepository<CustomerEntity, String> {
     @Query("SELECT c FROM CustomerEntity c WHERE c.email =:email")
     public CustomerEntity getUserByEmail(String email);
 
+    @Query("SELECT c FROM CustomerEntity c WHERE c.id_user =:id_user")
+    public CustomerEntity getUserById(Integer id_user);
 }

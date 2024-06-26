@@ -1,9 +1,7 @@
 package com.debuggeandoideas.app_security.controllers;
 
 import com.debuggeandoideas.app_security.entites.*;
-import com.debuggeandoideas.app_security.services.ClaimsService;
-import com.debuggeandoideas.app_security.services.DiagnosticsService;
-import com.debuggeandoideas.app_security.services.ReserveService;
+import com.debuggeandoideas.app_security.services.*;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +17,8 @@ public class ClaimsController {
     ClaimsService claimsService;
     ReserveService reserveService;
     DiagnosticsService diagnosticsService;
+    UserService userService;
+    BeneficiariosService beneficiariosService;
 
     @GetMapping("/getAllClaimsInsured/{insured_id}")
     public ResponseEntity<?>getAllClaimsByInsured(@PathVariable Integer insured_id){
@@ -49,7 +49,12 @@ public class ClaimsController {
             ClaimEntity claim = claims.get(i);
             ReserveEntity reserve = reserveService.getReserveByClaimId(claim.getId_claim());
             DiagnosticsEntity diagnostic = diagnosticsService.getDiagnosticById(claim.getDiagnostic_id());
+            CustomerEntity usuario = userService.getUserById(claim.getInsured_id());
+            BeneficiariosEntity beneficiary = beneficiariosService.getBeneficiarioById(claim.getBeneficiary_id());
+
+
             itemResponse.setId_claim(claim.getId_claim());
+            itemResponse.setId_beneficiary(claim.getBeneficiary_id());
             itemResponse.setState(claim.getState());
             itemResponse.setObservation(claim.getDescription());
             itemResponse.setValue(reserve.getValue());
@@ -57,7 +62,9 @@ public class ClaimsController {
             itemResponse.setCod_diagnostic(diagnostic.getCod_diagnostic());
             itemResponse.setDiagnostic(diagnostic.getDescription());
             itemResponse.setSinister_date(claim.getSinister_date());
-
+            itemResponse.setFull_name(usuario.getFull_name());
+            itemResponse.setDni(usuario.getDni());
+            itemResponse.setBeneficiary_name(beneficiary.getFull_name());
             response.add(itemResponse);
         }
         return ResponseEntity.ok(response);
@@ -74,14 +81,14 @@ public class ClaimsController {
         claim.setState(allclaim.getState());
         claim.setSinister_date(allclaim.getSinister_date());
         claim.setInsured_id(allclaim.getInsured_id());
-        claim.setAnalist_id(1);
+        claim.setAnalist_id(2);
         claim = claimsService.saveClaim(claim);
 
         saveReserve(claim, allclaim.getValue());
-        saveFile(allclaim.getFacturas(), claim.getId_claim());
-        saveFile(allclaim.getDocumentos(), claim.getId_claim());
+        //saveFile(allclaim.getFacturas(), claim.getId_claim());
+        //saveFile(allclaim.getDocumentos(), claim.getId_claim());
 
-        return ResponseEntity.ok(allclaim);
+        return ResponseEntity.ok(claim);
     }
 
     private void saveReserve(ClaimEntity claim, String value){
@@ -92,14 +99,14 @@ public class ClaimsController {
         reserve = claimsService.saveReserve(reserve);
     }
 
-    private void saveFile(List<FileEntity> files, Integer claim_id){
-
-        for(Integer i = 0; i<files.size(); i++){
-
-            FileEntity file = files.get(i);
-            file.setClaim_id(claim_id);
-            file = claimsService.saveFile(file);
-        }
-    }
+//    private void saveFile(List<FileEntity> files, Integer claim_id){
+//
+//        for(Integer i = 0; i<files.size(); i++){
+//
+//            FileEntity file = files.get(i);
+//            file.setClaim_id(claim_id);
+//            file = claimsService.saveFile(file);
+//        }
+//    }
 
 }

@@ -17,4 +17,8 @@ public class UserService {
     public CustomerEntity getUser(String email){
         return this.userRepository.getUserByEmail(email);
     }
+
+    public CustomerEntity getUserById(Integer id_user){
+        return userRepository.getUserById(id_user);
+    }
 }
