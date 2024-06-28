@@ -12,6 +12,9 @@ import java.util.List;
 public class ClaimResponse {
     private Integer id_claim;
     private Integer id_beneficiary;
+    private Integer insured_id;
+    private Integer analist_id;
+    private Integer id_reserve;
     private String state;
     private String observation;
     private String value;

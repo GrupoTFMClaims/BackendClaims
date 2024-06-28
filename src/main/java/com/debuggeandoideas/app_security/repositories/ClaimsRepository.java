@@ -14,4 +14,8 @@ public interface ClaimsRepository extends JpaRepository<ClaimEntity, String> {
 
     @Query("select c from ClaimEntity c where c.analist_id=:analist_id")
     public List<ClaimEntity> getClaimsByAnalistId(Integer analist_id);
+
+    @Query("select c from ClaimEntity c where c.beneficiary_id=:beneficiary_id")
+    public List<ClaimEntity> getClaimsByBeneficiaryId(Integer beneficiary_id);
+
 }

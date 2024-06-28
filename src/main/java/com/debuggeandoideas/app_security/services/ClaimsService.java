@@ -34,8 +34,16 @@ public class ClaimsService {
     public List<ClaimEntity> getAllClaimsByInsuredId(Integer insured_id){
         return claimsRepository.getClaimsByInsuredId(insured_id);
     }
-    public List<ClaimEntity> getAllClaimsByAnalistId(Integer insured_id){
-        return claimsRepository.getClaimsByAnalistId(insured_id);
+    public List<ClaimEntity> getAllClaimsByAnalistId(Integer analist_id){
+        return claimsRepository.getClaimsByAnalistId(analist_id);
+    }
+
+    public List<ClaimEntity> getAllClaimsByBeneficiaryId(Integer beneficiary_id){
+        return claimsRepository.getClaimsByBeneficiaryId(beneficiary_id);
+    }
+
+    public ClaimEntity updateStateClaim(ClaimEntity claim){
+        return claimsRepository.save(claim);
     }
 
 }

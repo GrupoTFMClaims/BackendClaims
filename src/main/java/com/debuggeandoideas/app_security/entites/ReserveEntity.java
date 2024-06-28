@@ -14,4 +14,8 @@ public class ReserveEntity {
     private String sinister_date;
     private String value;
     private Integer claim_id;
+    private Float uncovered_expenses;
+    private Float coinsurance;
+    private Float deductible;
+    private Float reimbursement;
 }
