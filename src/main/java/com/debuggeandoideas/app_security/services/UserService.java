@@ -6,6 +6,7 @@ import com.debuggeandoideas.app_security.repositories.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -20,5 +21,13 @@ public class UserService {
 
     public CustomerEntity getUserById(Integer id_user){
         return userRepository.getUserById(id_user);
+    }
+
+    public List<CustomerEntity> getAllUsers(){
+        return userRepository.getAllUsers();
+    }
+
+    public List<CustomerEntity> getAllUsersByName(String name){
+        return userRepository.getAllUsersByName(name);
     }
 }
