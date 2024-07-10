@@ -18,4 +18,16 @@ public class MenuService {
 
         return menuRepository.getMenuByParentId(id_rol, parent_id);
     }
+
+    public List<MenuEntity> getMenuByRol(Long id_rol){
+        return menuRepository.getMenuByRol(id_rol);
+    }
+
+    public List<MenuEntity> getAllMenu(){
+        return  menuRepository.getAllMenu();
+    }
+
+    public void UpdateMenu(MenuEntity menu){
+        menuRepository.save(menu);
+    }
 }

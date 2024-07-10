@@ -19,4 +19,5 @@ public class MenuEntity {
     private String icon;
     private String url;
     private Integer rol_id;
+    private String status;
 }

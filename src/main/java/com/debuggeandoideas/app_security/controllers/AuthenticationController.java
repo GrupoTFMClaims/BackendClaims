@@ -3,6 +3,7 @@ package com.debuggeandoideas.app_security.controllers;
 import com.debuggeandoideas.app_security.entites.CustomerEntity;
 import com.debuggeandoideas.app_security.entites.JWTRequest;
 import com.debuggeandoideas.app_security.entites.JWTResponse;
+import com.debuggeandoideas.app_security.entites.ResponseMessage;
 import com.debuggeandoideas.app_security.services.JWTService;
 import com.debuggeandoideas.app_security.services.JWTUserDetailService;
 import com.debuggeandoideas.app_security.services.UserService;
@@ -32,8 +33,13 @@ public class AuthenticationController {
         final var userDetails = this.jwtUserDetailService.loadUserByUsername(request.getUsername());
         final var token = this.jwtService.generateToken(userDetails);
 
-        return ResponseEntity.ok(new JWTResponse(token, usuario.getId_user(),
-                usuario.getRoles().get(0).getId(), usuario.getFull_name(), usuario.getDni()));
+        if(usuario.getStatus().equals("1")){
+            return ResponseEntity.ok(new JWTResponse(token, usuario.getId_user(),
+                    usuario.getRoles().get(0).getId(), usuario.getFull_name(), usuario.getDni()));
+        }else{
+            return ResponseEntity.ok(new ResponseMessage("Usuario Bloqueado o Inactivo"));
+        }
+
     }
 
     private void authenticate(JWTRequest request) {

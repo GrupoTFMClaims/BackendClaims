@@ -19,6 +19,8 @@ public class CustomerEntity implements Serializable {
     private String email;
     private  String password;
     private String dni;
+    private Integer rol_id;
+    private String status;
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_user")
     private List<RoleEntity> roles;

@@ -31,9 +31,8 @@ public class SecurityConfig {
         requestHandler.setCsrfRequestAttributeName("_csrf");
          http.authorizeHttpRequests(auth ->
                      auth
-                             .requestMatchers("/menu/**","/getAllClaims/**").hasRole("USER")
-                             .requestMatchers("/menu/**","/getAllClaims/**").hasRole("ADMIN")
-                         .anyRequest().permitAll())
+                             .requestMatchers("/getAllClaimsInsured/**").hasRole("USER")
+                             .anyRequest().permitAll())
                 .formLogin(Customizer.withDefaults())
                 .httpBasic(Customizer.withDefaults());
          http.addFilterAfter(jwtValidationFilter, BasicAuthenticationFilter.class);
@@ -43,7 +42,10 @@ public class SecurityConfig {
                 .ignoringRequestMatchers("/authenticate",
                                             "/saveClaim",
                                             "/saveReserve",
-                                            "/updateStateClaim")
+                                            "/updateStateClaim",
+                                            "/updateMenu",
+                                            "/updateCompany",
+                                            "/updateUser")
                 .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
                 .addFilterAfter(new CsrfCookieFilter(), BasicAuthenticationFilter.class);
         return http.build();
